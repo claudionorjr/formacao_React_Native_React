@@ -4,6 +4,15 @@ import USDateToBRDate from './USDateToBRDate.js'
 import BSN from 'bootstrap.native'
 
 
+/**
+ * @description: Exporta por padrão um CardFavoriteComponent.
+ * 
+ * @author Claudionor Silva <claudionor.junior1994@gmail.com>
+ * @version 1.0.0
+ * 
+ * @param {NewsModel} props
+ * @returns {CardFavoriteComponent}
+ */
 export default function CardFavoriteComponent(props) {
     var uSDateToBRDate = new USDateToBRDate(props.news.getPublishedAt())
     const imgStyle = {maxHeight:'200px', width:'auto'}

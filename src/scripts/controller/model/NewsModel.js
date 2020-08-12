@@ -1,12 +1,12 @@
 /**
- * @class News
+ * @class NewsModel
  * 
  * @description: Modelo de notícias.
  * 
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
  * @version 3.0.0
  */
-export default class News {
+export default class NewsModel {
     /**
      * @description: Método para setar this._source.
      * 

@@ -2,6 +2,14 @@ import React from 'react'
 import BSN from 'bootstrap.native'
 
 
+/**
+ * @description: Exporta por padrão um ModalComponent.
+ * 
+ * @author Claudionor Silva <claudionor.junior1994@gmail.com>
+ * @version 1.0.0
+ * 
+ * @returns {ModalComponent}
+ */
 export default function ModalComponent() {
     const modalStyle = {tabIndex:'-1'}
 

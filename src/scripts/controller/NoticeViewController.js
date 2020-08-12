@@ -134,7 +134,7 @@ export default class NoticeViewController {
                 </header>
                 <main className="container-lg mt-5">
                     <div className="mt-5">
-                        <FormComponent controller={this}/>
+                    {endPoint ? (<FormComponent controller={this}/>) : null}
                     </div>
                     <div className="mt-5">
                         <div className="row justify-content-around row-cols-1 row-cols-md-2" id="cardsArea">

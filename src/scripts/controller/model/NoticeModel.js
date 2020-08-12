@@ -45,7 +45,7 @@ export default class NoticeModel {
 
     /**
      * @description: Cria no indexedDB um notícia favoritada pelo usuário.
-     * @param {News} news
+     * @param {NewsModel} news
      */
     create(news) {
         var database = new Database()

@@ -1,6 +1,15 @@
 import React from 'react'
 
 
+/**
+ * @description: Exporta por padrão um NavBarComponent.
+ * 
+ * @author Claudionor Silva <claudionor.junior1994@gmail.com>
+ * @version 1.0.0
+ * 
+ * @param {NoticeViewController} props
+ * @returns {NavBarComponent}
+ */
 export default function NavBarComponent(props) {
 
     return (
