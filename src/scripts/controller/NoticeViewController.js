@@ -4,7 +4,6 @@ import CardComponent from '../component/CardComponent'
 import CardFavoriteComponent from '../component/CardFavoriteComponent'
 import NoticeController from './NoticeController.js'
 import EndPoint from './model/EndPoint.js'
-import NewsModel from './model/NewsModel.js'
 import ModalComponent from '../component/ModalComponent'
 import NavBarComponent from '../component/NavBarComponent'
 import FormComponent from '../component/FormComponent'
@@ -126,7 +125,8 @@ export default class NoticeViewController {
      * @param {EndPoint} endPoint
      */
     async addAllNoticesNew(endPoint) {
-        var array = endPoint ? (await this.getAllNoticies(endPoint)).articles : await this.getAllNoticiesInDB()
+        var allNoticesArray = endPoint ? (await this.getAllNoticies(endPoint)).articles : await this.getAllNoticiesInDB()
+        let favorities = await this.noticeController.getAllFavoritiesNoticies();
         ReactDOM.render(
             <React.StrictMode >
                 <header>
@@ -138,16 +138,12 @@ export default class NoticeViewController {
                     </div>
                     <div className="mt-5">
                         <div className="row justify-content-around row-cols-1 row-cols-md-2" id="cardsArea">
-                            {array.map((e, index) => {
-                                let news = new NewsModel()
-                                news.setTitle(e['title'])
-                                news.setSource(endPoint ? e['source']['name'] : e['source'])
-                                news.setDescription(e['description'])
-                                news.setContent(e['content'])
-                                news.setPublishedAt(e['publishedAt'])
-                                news.setUrlImage(e['urlToImage'])
-                                return endPoint ? (<CardComponent news={news} key={index}/>) : (<CardFavoriteComponent news={news} key={index}/>)
-                            })}
+                            {
+                                endPoint ?
+                                (<CardComponent array={allNoticesArray} favorities={favorities} />)
+                                :
+                                (<CardFavoriteComponent array={allNoticesArray} />)
+                            }
                         </div>
                         <ModalComponent />
                     </div>
