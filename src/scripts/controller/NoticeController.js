@@ -1,4 +1,4 @@
-import NoticeModel from './model/NoticeModel.js'
+import NoticeModel from '../model/NoticeModel.js'
 
 
 /**

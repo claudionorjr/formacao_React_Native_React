@@ -1,28 +1,23 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import CardComponent from '../component/CardComponent'
-import CardFavoriteComponent from '../component/CardFavoriteComponent'
 import NoticeController from './NoticeController.js'
-import EndPoint from './model/EndPoint.js'
-import ModalComponent from '../component/ModalComponent'
-import NavBarComponent from '../component/NavBarComponent'
-import FormComponent from '../component/FormComponent'
+import EndPoint from '../model/EndPoint.js'
 
 
 /**
- * @class NoticeViewController
+ * @class EndPointController
  * 
- * @description: Classe modelo para uma view de notícias!
+ * @description: Classe EndPointController !
  * 
  * @author Claudionor Junior <claudionor.junior1994@gmail.com>
  * @version 3.0.0
+ * 
+ * @returns {EndPoint} endPoint
  */
-export default class NoticeViewController {
+export default class EndPointController {
     constructor() {
         this.noticeController = new NoticeController()
         this.endpoint = new EndPoint()
         this.endpoint.setCountry("br")
-        this.addAllNoticesNew(this.endpoint)
+        this.getEndPoint(this.endpoint)
     }
 
     /**
@@ -69,7 +64,7 @@ export default class NoticeViewController {
      * @see EndPoint
      */
     searchTopHeadLines() {
-        this.addAllNoticesNew(this.endpoint)
+        this.getEndPoint(this.endpoint)
     }
 
     /**
@@ -84,7 +79,7 @@ export default class NoticeViewController {
         let endpoint = new EndPoint()
         endpoint.setFuntion(selected)
         endpoint.setQuery('q='+inputSearch.value)
-        this.addAllNoticesNew(endpoint)
+        this.getEndPoint(endpoint)
     }
 
     /**
@@ -99,7 +94,7 @@ export default class NoticeViewController {
         let endpoint = new EndPoint()
         endpoint.setCountry(selected)
         endpoint.setQuery('country=')
-        this.addAllNoticesNew(endpoint)
+        this.getEndPoint(endpoint)
     }
 
     /**
@@ -115,41 +110,7 @@ export default class NoticeViewController {
      * @param {EndPoint} endpoint
      * @see EndPoint 
      */
-    getAllNoticies(endpoint) {
-        return this.noticeController.sendJSONToView(endpoint)
-    }
-
-    /**
-     * @description: Método envia cada objeto de um Array para renderizar.
-     * 
-     * @param {EndPoint} endPoint
-     */
-    async addAllNoticesNew(endPoint) {
-        var allNoticesArray = endPoint ? (await this.getAllNoticies(endPoint)).articles : await this.getAllNoticiesInDB()
-        let favorities = await this.noticeController.getAllFavoritiesNoticies();
-        ReactDOM.render(
-            <React.StrictMode >
-                <header>
-                    <NavBarComponent controller={this} />
-                </header>
-                <main className="container-lg mt-5">
-                    <div className="mt-5">
-                    {endPoint ? (<FormComponent controller={this}/>) : null}
-                    </div>
-                    <div className="mt-5">
-                        <div className="row justify-content-around row-cols-1 row-cols-md-2" id="cardsArea">
-                            {
-                                endPoint ?
-                                (<CardComponent array={allNoticesArray} favorities={favorities} />)
-                                :
-                                (<CardFavoriteComponent array={allNoticesArray} />)
-                            }
-                        </div>
-                        <ModalComponent />
-                    </div>
-                </main>
-            </React.StrictMode>,
-            document.getElementById('root')
-        )
+    async getEndPoint(endpoint) {
+        this.endpoint = endpoint
     }
 }

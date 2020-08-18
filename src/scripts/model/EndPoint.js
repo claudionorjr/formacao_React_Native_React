@@ -17,7 +17,7 @@ export default class EndPoint {
      * 
      * @param {String} functionEndPoint 
      */
-    setFuntion(functionEndPoint) {
+    setFunction(functionEndPoint) {
         this._functionEndPoint = 
         (functionEndPoint !== undefined || functionEndPoint !== null || functionEndPoint !== '')
         ? functionEndPoint

@@ -11,7 +11,6 @@ import React from 'react'
  * @returns {FormComponent}
  */
 export default function FormComponent(props) {
-    const formStyle = {display:'none'}
 
     return (
         <form id="form-search" onSubmit={(e)=>{
@@ -30,11 +29,11 @@ export default function FormComponent(props) {
                     <option value="country">Pais</option>
                 </select>
             </div>
-            <div className="form-group" style={formStyle} id="search">
+            <div className="form-group" style={{display:'none'}} id="search">
                 <label htmlFor="exampleFormControlSelect1">Consulte por assunto</label>
                 <input className="form-control" id="input-search"></input>
             </div>
-            <div className="form-group" style={formStyle} id="div-countries">
+            <div className="form-group" style={{display:'none'}} id="div-countries">
                 <label htmlFor="exampleFormControlSelect1">Selecione o Pais</label>
                 <select className="form-control" id="select-countries">
                     <option value="" disabled defaultValue hidden> Selecione...</option>

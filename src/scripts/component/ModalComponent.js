@@ -11,10 +11,9 @@ import BSN from 'bootstrap.native'
  * @returns {ModalComponent}
  */
 export default function ModalComponent() {
-    const modalStyle = {tabIndex:'-1'}
 
     return (
-        <div id="myModal" className="modal fade" style={modalStyle}>
+        <div id="myModal" className="modal fade" style={{tabIndex:'-1'}}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className='modal-header'>

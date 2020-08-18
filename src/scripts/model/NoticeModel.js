@@ -48,17 +48,20 @@ export default class NoticeModel {
      * @param {NewsModel} news
      */
     create(news) {
-        var database = new Database()
-        database.open((db) => {
-            var transaction = db.transaction('noticesDB', "readwrite")
-            var store = transaction.objectStore('noticesDB')
-            var add = store.add({content: news.getContent(), description: news.getDescription(),
-                publishedAt: news.getPublishedAt(), name: news.getSource(), title: news.getTitle(),
-                urlToImage: news.getUrlImage()
+        return new Promise((resolve) => {
+            var database = new Database()
+            database.open((db) => {
+                var transaction = db.transaction('noticesDB', "readwrite")
+                var store = transaction.objectStore('noticesDB')
+                var add = store.add({content: news.getContent(), description: news.getDescription(),
+                    publishedAt: news.getPublishedAt(), name: news.getSource(), title: news.getTitle(),
+                    urlToImage: news.getUrlImage()
+                })
+                add.onsuccess = (event) => resolve(event.target.result)
+                add.onerror = () => {}
             })
-            add.onsuccess = () => {}
-            add.onerror = () => {}
         })
+        
     }
 
     /**

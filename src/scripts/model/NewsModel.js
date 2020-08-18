@@ -8,6 +8,20 @@
  */
 export default class NewsModel {
     /**
+     * @description: Método para setar this._id.
+     * 
+     * @param {String} id
+     */
+    setId(id) { this._id = id }
+
+    /**
+     * @description: Método para pegar this._id.
+     * 
+     * @return {this._id}
+     */
+    getId() { return this._id }
+
+    /**
      * @description: Método para setar this._source.
      * 
      * @param {String} source 

@@ -1,7 +1,8 @@
 import React from 'react'
-import NoticeController from '../controller/NoticeController'
+import { connect } from 'react-redux'
 import USDateToBRDate from './USDateToBRDate.js'
-import NewsModel from '../controller/model/NewsModel.js'
+import NewsModel from '../model/NewsModel.js'
+import NoticeModel from '../model/NoticeModel'
 import BSN from 'bootstrap.native'
 
 
@@ -14,18 +15,19 @@ import BSN from 'bootstrap.native'
  * @param {NewsModel} props
  * @returns {CardFavoriteComponent}
  */
-export default class CardFavoriteComponent extends React.Component {
-    constructor(props) {
-        super(props)
-        this.noticeController = new NoticeController()
-        this.state = {array: props.array}
-    }
+class CardFavoriteComponent extends React.Component {
     
+    async componentDidMount() {
+        const noticeModel = new NoticeModel()
+        const noticies = await noticeModel.getAll()
+        this.props.dispatch({ type: 'notice/add/favorite', list: noticies })
+    }
+
     /**
      * @description: Recebe um Array da 'ViewController' e faz um '.map' e renderiza cada objeto do array.
      */
     render() {
-        return this.state.array.map((e, index) => {
+        return this.props.list.map((e, index) => {
             var newsModel = new NewsModel()
             newsModel.setTitle(e['title'])
             newsModel.setSource(e['source'])
@@ -56,11 +58,12 @@ export default class CardFavoriteComponent extends React.Component {
                                 Ver Mais <i className="fa fa-plus"></i>
                             </button>
                             <button className="btn btn-light btn-sm ml-2 mb-1" onClick={() => {
-                                this.noticeController.deleteNotice(newsModel.getTitle())
-                                this.state.array.splice(index, 1)
-                                this.setState({
-                                    array: this.state.array
-                                })
+                                const noticeModel = new NoticeModel()
+                                var newList = [...this.props.list]
+                                newList.splice(index, 1)
+                                noticeModel.getToDelete(e.title)
+
+                                this.props.dispatch({ type: 'notice/remove/favorite', list: newList })
                             }}>
                                 Remover Favorito <i className="fa fa-trash"></i>
                             </button>
@@ -71,3 +74,9 @@ export default class CardFavoriteComponent extends React.Component {
         })
     }
 }
+
+const mapStateToProps = (state) => {
+    return { list: state.list, fav: state.fav }
+}
+
+export default connect(mapStateToProps)(CardFavoriteComponent)
